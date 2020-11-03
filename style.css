@@ -1,0 +1,11 @@
+:root {
+  --mainColor: #C9487A;
+  --secColor: #2C3747;
+
+  --color: var(--mainColor);
+}
+       
+
+body, html {
+  background-color: var(--secColor);
+}
