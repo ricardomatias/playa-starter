@@ -3,6 +3,7 @@ import * as Tone from 'tone';
 import { toToneEvent } from './helpers';
 
 const partProgress = document.getElementById('partProgress');
+let partCreated = false;
 
 async function ready() {
     const synth = await createSynth();
@@ -21,6 +22,7 @@ async function ready() {
 
     part.loop = true;
     part.loopEnd = '1:0:0';
+    partCreated = true;
 }
 
 async function createSynth() {
@@ -64,7 +66,11 @@ async function createSynth() {
     return synth;
 }
 
-function play() {
+async function play() {
+    await Tone.start();
+    if(!partCreated) {
+        await ready()
+    }
     Tone.Transport.start('+0.01');
 }
 
@@ -74,7 +80,3 @@ function stop() {
 
 document.getElementById('play').addEventListener('click', play);
 document.getElementById('stop').addEventListener('click', stop);
-
-Tone.start().then(ready);
-
-
